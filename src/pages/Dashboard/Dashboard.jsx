@@ -45,6 +45,7 @@ const Dashboard = () => {
   const filteredSearch = data.filter((items) =>
     items.item_name.toLowerCase().includes(search)
   );
+  console.log(filteredSearch);
 
   return (
     <div className="wrapper">
@@ -60,7 +61,7 @@ const Dashboard = () => {
         </Button>
       </div>
       <S.FlexContainer>
-        {filteredSearch.length > 1
+        {filteredSearch.length >= 1
           ? filteredSearch.map((item) => {
               return (
                 <Card

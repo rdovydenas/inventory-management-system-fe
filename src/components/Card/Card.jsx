@@ -59,8 +59,6 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
       .catch((err) => err.message);
   };
 
-  console.log(image);
-
   return (
     <S.CardBlock>
       <S.CardImage src={image} />
