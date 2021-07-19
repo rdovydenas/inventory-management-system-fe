@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 export const FlexContainer = styled.section`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 769px) {
+    display: block;
+  } ;
 `;
 
 export const Input = styled.input`

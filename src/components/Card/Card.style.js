@@ -12,6 +12,10 @@ export const CardBlock = styled.div`
   &:nth-child(4n) {
     margin-right: 0;
   }
+
+  @media (max-width: 769px) {
+    width: 100%;
+  } ;
 `;
 
 export const CardImage = styled.img`

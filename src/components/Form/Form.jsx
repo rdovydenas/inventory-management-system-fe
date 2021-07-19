@@ -52,7 +52,7 @@ const Form = ({ type }) => {
     }
   };
   return (
-    <form onSubmit={validation}>
+    <form className="wrapper" onSubmit={validation}>
       <S.Input
         type="email"
         name="email"
