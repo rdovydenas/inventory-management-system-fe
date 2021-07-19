@@ -1,31 +1,34 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import * as Yup from "yup";
-import * as S from "./Form.style";
-import Button from "../Button/Button";
-import { useHistory } from "react-router-dom";
-import { AuthContext } from "../../contexts/authContext";
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import * as Yup from 'yup';
+import * as S from './Form.style';
+import Button from '../Button/Button';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../contexts/authContext';
 
 const Form = ({ type }) => {
   const authContext = useContext(AuthContext);
   const history = useHistory();
   const fetchFunction = (email, password) => {
-    fetch(`http://localhost:2000/auth/${type}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
+    fetch(
+      `https://inventory-management-system-be-mqsje.ondigitalocean.app/auth/${type}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-        if (type === "login") {
+        if (type === 'login') {
           if (data.token) {
             authContext.setAuth(data.token);
-            history.push("/dashboard");
+            history.push('/dashboard');
           }
-        } else if (type === "register") {
-          history.push("/");
+        } else if (type === 'register') {
+          history.push('/');
         }
       });
   };
@@ -42,10 +45,10 @@ const Form = ({ type }) => {
       });
 
       schema.isValid({ email, password }).then((data) => {
-        data ? fetchFunction(email, password) : alert("Bad email or password");
+        data ? fetchFunction(email, password) : alert('Bad email or password');
       });
     } else {
-      alert("Please write in email and password");
+      alert('Please write in email and password');
     }
   };
   return (
@@ -74,7 +77,7 @@ const Form = ({ type }) => {
 };
 
 Form.propTypes = {
-  type: PropTypes.oneOf(["login", "register"]).isRequired,
+  type: PropTypes.oneOf(['login', 'register']).isRequired,
 };
 
 export default Form;

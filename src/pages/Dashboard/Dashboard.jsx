@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import Button from '../../components/Button/Button';
 import * as S from './Dashboard.style';
 import Card from '../../components/Card/Card';
 import { useHistory } from 'react-router-dom';
@@ -23,12 +24,20 @@ const Dashboard = () => {
   if (!authContext.auth) {
     // history.push('/');
   }
+
+  const addPage = () => {
+    history.push('/add');
+  };
+
   useEffect(() => {
-    fetch('http://localhost:2000/content', {
-      headers: {
-        authorization: `Beared ${authContext.auth}`,
-      },
-    })
+    fetch(
+      'https://inventory-management-system-be-mqsje.ondigitalocean.app/content',
+      {
+        headers: {
+          authorization: `Beared ${authContext.auth}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((result) => setData(result));
   }, [authContext.auth]);
@@ -39,12 +48,17 @@ const Dashboard = () => {
 
   return (
     <div className="wrapper">
-      <S.Input
-        type="search"
-        placeholder="Search by name..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      ></S.Input>
+      <div className="topSection">
+        <S.Input
+          type="search"
+          placeholder="Search by name..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        ></S.Input>
+        <Button type="Submit" color="primary" addPage={addPage}>
+          Add an item
+        </Button>
+      </div>
       <S.FlexContainer>
         {filteredSearch.length > 1
           ? filteredSearch.map((item) => {

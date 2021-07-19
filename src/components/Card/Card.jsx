@@ -9,13 +9,16 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    fetch('http://localhost:2000/content', {
-      headers: {
-        authorization: `Beared ${authContext.auth}`,
-      },
-    })
+    fetch(
+      'https://inventory-management-system-be-mqsje.ondigitalocean.app/content',
+      {
+        headers: {
+          authorization: `Beared ${authContext.auth}`,
+        },
+      }
+    )
       .then((res) => res.json())
-      .then((result) => console.log(result));
+      .then((result) => result);
   }, [authContext.auth]);
 
   let [aidi, setAidi] = useState(id);
@@ -36,16 +39,19 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
   };
 
   const updateQty = (qty, aidi) => {
-    fetch(`http://localhost:2000/content/qty/${aidi}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: Number(aidi),
-        quantity: Number(qty),
-      }),
-    })
+    fetch(
+      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/qty/${aidi}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: Number(aidi),
+          quantity: Number(qty),
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -60,7 +66,7 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
       <S.CardImage src={image} />
       <h2>Name: {name}</h2>
       <h3>Color: {color}</h3>
-      <h4>Size: {size}</h4>
+      <h4>Size: {size.toUpperCase()}</h4>
       <Button
         onToggle={() => {
           setToggle(!toggle);

@@ -4,19 +4,22 @@ import Button from '../../components/Button/Button';
 import { useHistory } from 'react-router-dom';
 
 function AddItem(item, history) {
-  fetch(`http://localhost:2000/content/add`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: item.name,
-      color: item.color,
-      size: item.size,
-      quantity: item.quantity,
-      // image: item.image,
-    }),
-  })
+  fetch(
+    `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/add`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: item.name,
+        color: item.color,
+        size: item.size,
+        quantity: item.quantity,
+        // image: item.image,
+      }),
+    }
+  )
     .then((res) => res.json())
     .then((data) => {
       history.push('/dashboard');
