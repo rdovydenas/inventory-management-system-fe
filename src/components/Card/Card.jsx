@@ -59,6 +59,26 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
       .catch((err) => err.message);
   };
 
+  const deleteItem = (aidi) => {
+    fetch(
+      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/qty/${aidi}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: Number(aidi),
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => err.message);
+  };
+
   return (
     <S.CardBlock>
       <S.CardImage src={image} />
@@ -72,7 +92,7 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
       >
         Change qty
       </Button>
-      <h5>Quantity: {qty}</h5>
+
       {toggle === true && (
         <S.ButtonBlock>
           <Button addQty={Inc} color="primary">
@@ -83,6 +103,10 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
           </Button>
         </S.ButtonBlock>
       )}
+      <h5>Quantity: {qty}</h5>
+      <S.DelButton color="red" onDelete={deleteItem}>
+        DELETE ITEM
+      </S.DelButton>
     </S.CardBlock>
   );
 };

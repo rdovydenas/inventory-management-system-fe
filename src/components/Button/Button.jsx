@@ -10,10 +10,11 @@ const Button = ({
   onToggle,
   addQty,
   minQty,
-  addPage,
+  onAdd,
+  onDelete,
 }) => (
   <S.Button
-    onClick={addQty || minQty || addPage || onToggle}
+    onClick={addQty || minQty || onAdd || onToggle || onDelete}
     type={type}
     color={color}
   >

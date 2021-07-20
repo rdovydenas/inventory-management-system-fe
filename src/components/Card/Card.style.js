@@ -25,5 +25,16 @@ export const CardImage = styled.img`
 `;
 
 export const ButtonBlock = styled.div`
+  margin-top: 1rem;
   width: 100%;
+`;
+
+export const DelButton = styled.button`
+  border: none;
+  background-color: ${(props) => (props.color === 'red' ? 'red' : '#b7b7a4')};
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  text-transform: uppercase;
 `;

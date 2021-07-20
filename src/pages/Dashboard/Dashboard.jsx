@@ -56,7 +56,7 @@ const Dashboard = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></S.Input>
-        <Button type="Submit" color="primary" addPage={addPage}>
+        <Button type="Submit" color="primary" onAdd={addPage}>
           Add an item
         </Button>
       </div>
