@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import * as S from './Card.style';
 import Button from '../Button/Button';
 
-const Card = ({ item, onDelete, onToggle, updateQty }) => {
+const Card = ({ item, onToggle, updateQty, deleteItem }) => {
   const [toggle, setToggle] = useState(false);
   let [qty, setQty] = useState(item.item_quantity);
   let [id, setId] = useState(item.id);
+
+  //ADD QTY
 
   const Inc = () => {
     qty++;
@@ -14,6 +16,8 @@ const Card = ({ item, onDelete, onToggle, updateQty }) => {
     setId(item.id);
     updateQty(id, qty);
   };
+
+  //MIN QTY
 
   const Dec = () => {
     qty--;
@@ -47,7 +51,7 @@ const Card = ({ item, onDelete, onToggle, updateQty }) => {
         </S.ButtonBlock>
       )}
       <h5>Quantity: {qty}</h5>
-      <Button color="secondary" type="button">
+      <Button color="secondary" type="button" deleteItem={() => deleteItem(id)}>
         DELETE ITEM
       </Button>
     </S.CardBlock>

@@ -49,7 +49,6 @@ const Dashboard = () => {
   //UPDATE QTY
 
   const updateQty = async (id, qty) => {
-    console.log(qty);
     const res = await fetch(
       `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/qty/${id}`,
       {
@@ -67,7 +66,32 @@ const Dashboard = () => {
     console.log(result);
   };
 
-  // filteredData
+  //DELETE ITEM
+
+  // const onDelete = async (id) => {
+  //   console.log(id);
+  //   const res = await fetch(
+  //     `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/item/${id}`,
+  //     {
+  //       method: 'DELETE',
+  //     }
+  //   );
+  //   const result = await res.json();
+  //   console.log(result);
+  // };
+
+  const deleteItem = async (id) => {
+    console.log(id);
+    const res = await fetch(
+      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/item/${id}`,
+      {
+        method: 'DELETE',
+      }
+    );
+    const result = await res.json();
+    console.log(result);
+    setData(data.filter((item) => item.id !== id));
+  };
 
   return (
     <div className="wrapper">
@@ -86,6 +110,7 @@ const Dashboard = () => {
       </div>
       <S.FlexContainer>
         <Cards
+          deleteItem={deleteItem}
           updateQty={updateQty}
           items={data.filter((items) => {
             if (search === '') {
