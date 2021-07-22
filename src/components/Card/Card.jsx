@@ -1,90 +1,33 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as S from './Card.style';
 import Button from '../Button/Button';
-import { AuthContext } from '../../contexts/authContext';
 
-const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
+const Card = ({ item, onDelete, onToggle, updateQty }) => {
   const [toggle, setToggle] = useState(false);
-  const authContext = useContext(AuthContext);
-
-  useEffect(() => {
-    fetch(
-      'https://inventory-management-system-be-mqsje.ondigitalocean.app/content',
-      {
-        headers: {
-          authorization: `Beared ${authContext.auth}`,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((result) => result);
-  }, [authContext.auth]);
-
-  let [aidi, setAidi] = useState(id);
-  let [qty, setQty] = useState(quantity);
+  let [qty, setQty] = useState(item.item_quantity);
+  let [id, setId] = useState(item.id);
 
   const Inc = () => {
     qty++;
     setQty(qty);
-    setAidi(aidi);
-    updateQty(qty, aidi);
+    setId(item.id);
+    updateQty(id, qty);
   };
 
   const Dec = () => {
     qty--;
     setQty(qty);
-    setAidi(aidi);
-    updateQty(qty, aidi);
-  };
-
-  const updateQty = (qty, aidi) => {
-    fetch(
-      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/qty/${aidi}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: Number(aidi),
-          quantity: Number(qty),
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => err.message);
-  };
-
-  const deleteItem = (aidi) => {
-    fetch(
-      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/qty/${aidi}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: Number(aidi),
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => err.message);
+    setId(item.id);
+    updateQty(id, qty);
   };
 
   return (
     <S.CardBlock>
-      <S.CardImage src={image} />
-      <h2>Name: {name}</h2>
-      <h3>Color: {color}</h3>
-      <h4>Size: {size.toUpperCase()}</h4>
+      <S.CardImage src={item.item_image} />
+      <h2>Name: {item.item_name}</h2>
+      <h3>Color: {item.item_color}</h3>
+      <h4>Size: {item.item_size}</h4>
       <Button
         onToggle={() => {
           setToggle(!toggle);
@@ -95,18 +38,18 @@ const Card = ({ size, image, quantity, name, color, onToggle, id }) => {
 
       {toggle === true && (
         <S.ButtonBlock>
-          <Button addQty={Inc} color="primary">
+          <Button color="primary" addQty={Inc}>
             +
           </Button>
-          <Button minQty={Dec} color="secondary">
+          <Button color="secondary" minQty={Dec}>
             -
           </Button>
         </S.ButtonBlock>
       )}
       <h5>Quantity: {qty}</h5>
-      <S.DelButton color="red" onDelete={deleteItem}>
+      <Button color="secondary" type="button">
         DELETE ITEM
-      </S.DelButton>
+      </Button>
     </S.CardBlock>
   );
 };
