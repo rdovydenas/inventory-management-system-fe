@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as S from './Card.style';
 import Button from '../Button/Button';
 
 const Card = ({ item, onToggle, updateQty, deleteItem }) => {
   const [toggle, setToggle] = useState(false);
+  const [image, setImage] = useState('');
+  const [showImg, setShowImg] = useState('');
   let [qty, setQty] = useState(item.item_quantity);
   let [id, setId] = useState(item.id);
+
+  useEffect(() => {
+    const convertImage = () => setImage(item.item_image);
+    const buff = Buffer.from(image, 'utf-8');
+    const base64 = buff.toString('base64');
+    const rebuff = Buffer.from(base64, 'base64');
+    const str = rebuff.toString('utf-8');
+    setShowImg(str);
+    convertImage();
+  });
+
+  //CONVERT IMAGE
 
   //ADD QTY
 
@@ -28,7 +42,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
 
   return (
     <S.CardBlock>
-      <S.CardImage src={item.item_image} />
+      <S.CardImage src={showImg} />
       <h2>Name: {item.item_name}</h2>
       <h3>Color: {item.item_color}</h3>
       <h4>Size: {item.item_size}</h4>

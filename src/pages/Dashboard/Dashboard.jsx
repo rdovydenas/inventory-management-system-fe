@@ -68,18 +68,6 @@ const Dashboard = () => {
 
   //DELETE ITEM
 
-  // const onDelete = async (id) => {
-  //   console.log(id);
-  //   const res = await fetch(
-  //     `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/item/${id}`,
-  //     {
-  //       method: 'DELETE',
-  //     }
-  //   );
-  //   const result = await res.json();
-  //   console.log(result);
-  // };
-
   const deleteItem = async (id) => {
     console.log(id);
     const res = await fetch(
