@@ -14,9 +14,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
     const convertImage = () => setImage(item.item_image);
     const buff = Buffer.from(image, 'utf-8');
     const base64 = buff.toString('base64');
-    const rebuff = Buffer.from(base64, 'base64');
-    const str = rebuff.toString('utf-8');
-    setShowImg(str);
+    setShowImg(base64);
     convertImage();
   });
 
