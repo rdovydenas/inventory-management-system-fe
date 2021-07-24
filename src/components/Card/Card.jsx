@@ -13,8 +13,6 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
     setShowImg('data:image/png;base64,' + item.item_image);
   });
 
-  //CONVERT IMAGE
-
   //ADD QTY
 
   const Inc = () => {
