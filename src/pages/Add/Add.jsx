@@ -4,6 +4,14 @@ import Button from '../../components/Button/Button';
 
 import { useHistory } from 'react-router-dom';
 
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+
 function AddItem(item, history) {
   fetch(
     `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/add`,
@@ -82,16 +90,9 @@ const Add = () => {
         type="file"
         name="image"
         onChange={(e) => {
-          const file = e.target.files[0];
-          const reader = new FileReader();
-          reader.onload = function (event) {
-            setItems({
-              ...item,
-              image: btoa(unescape(encodeURIComponent(event.target.result))),
-            });
-          };
-          reader.readAsText(file);
-          console.log(file);
+          toBase64(e.target.files[0]).then((file) =>
+            setItems({ ...item, image: file })
+          );
         }}
         required
       />

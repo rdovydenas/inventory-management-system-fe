@@ -10,7 +10,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
   let [id, setId] = useState(item.id);
 
   useEffect(() => {
-    setShowImg('data:image/png;base64,' + item.item_image);
+    setShowImg(item.item_image);
   });
 
   //ADD QTY
