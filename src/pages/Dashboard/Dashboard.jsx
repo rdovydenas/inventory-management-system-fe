@@ -11,10 +11,6 @@ const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const history = useHistory();
 
-  if (!authContext.auth) {
-    history.push('/');
-  }
-
   const addPage = () => {
     history.push('/add');
   };
