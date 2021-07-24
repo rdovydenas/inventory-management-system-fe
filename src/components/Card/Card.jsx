@@ -5,17 +5,12 @@ import Button from '../Button/Button';
 
 const Card = ({ item, onToggle, updateQty, deleteItem }) => {
   const [toggle, setToggle] = useState(false);
-  const [image, setImage] = useState('');
   const [showImg, setShowImg] = useState('');
   let [qty, setQty] = useState(item.item_quantity);
   let [id, setId] = useState(item.id);
 
   useEffect(() => {
-    const convertImage = () => setImage(item.item_image);
-    const buff = Buffer.from(image, 'utf-8');
-    const base64 = buff.toString('base64');
-    setShowImg(base64);
-    convertImage();
+    setShowImg('data:image/png;base64,' + item.item_image);
   });
 
   //CONVERT IMAGE

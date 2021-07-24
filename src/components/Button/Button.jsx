@@ -5,7 +5,6 @@ import * as S from './Button.style';
 const Button = ({
   children,
   type,
-  handleClick,
   color,
   onToggle,
   addQty,

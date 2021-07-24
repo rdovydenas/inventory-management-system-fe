@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './Add.style';
 import Button from '../../components/Button/Button';
+
 import { useHistory } from 'react-router-dom';
 
 function AddItem(item, history) {
@@ -49,8 +50,8 @@ const Add = () => {
         type="text"
         name="name"
         minLength="4"
-        maxLength="255"
-        placeholder="Item name"
+        maxLength="100"
+        placeholder="Item Name ex. Turkish Line Jeans"
         required
         onChange={(e) => setItems({ ...item, name: e.target.value })}
       />
@@ -58,22 +59,22 @@ const Add = () => {
         type="text"
         name="color"
         maxLength="15"
-        placeholder="Color"
+        placeholder="Color ex. Blue"
         required
         onChange={(e) => setItems({ ...item, color: e.target.value })}
       />
       <S.Input
         type="text"
         name="size"
-        maxLength="1"
-        placeholder="Size "
+        maxLength="10"
+        placeholder="Size ex. 32/34"
         required
         onChange={(e) => setItems({ ...item, size: e.target.value })}
       />
       <S.Input
         type="number"
         name="quantity"
-        placeholder="Quantity "
+        placeholder="Quantity ex. 64"
         onChange={(e) => setItems({ ...item, quantity: e.target.value })}
         required
       />
@@ -81,8 +82,18 @@ const Add = () => {
         type="file"
         name="image"
         onChange={(e) => {
-          setItems({ ...item, image: e.target.files[0] });
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            setItems({
+              ...item,
+              image: btoa(unescape(encodeURIComponent(event.target.result))),
+            });
+          };
+          reader.readAsText(file);
+          console.log(file);
         }}
+        required
       />
       <Button type="submit" color="primary" handleClick="submit">
         Confirm

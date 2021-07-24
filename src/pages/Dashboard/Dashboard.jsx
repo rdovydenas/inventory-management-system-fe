@@ -12,7 +12,7 @@ const Dashboard = () => {
   const history = useHistory();
 
   if (!authContext.auth) {
-    // history.push('/');
+    history.push('/');
   }
 
   const addPage = () => {
