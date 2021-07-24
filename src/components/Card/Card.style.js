@@ -20,8 +20,11 @@ export const CardBlock = styled.div`
 
 export const CardImage = styled.img`
   max-width: 100%;
-  height: 10rem;
+  height: 12rem;
   object-fit: cover;
+  @media (max-width: 769px) {
+    height: 18rem;
+  } ;
 `;
 
 export const ButtonBlock = styled.div`
