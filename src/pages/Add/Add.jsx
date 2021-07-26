@@ -46,7 +46,6 @@ const Add = () => {
       .then((res) => res.json())
       .then((data) => {
         history.push('/dashboard');
-        console.log(data);
       })
       .catch((err) => err.message);
   }
@@ -68,7 +67,13 @@ const Add = () => {
         maxLength="100"
         placeholder="Item Name ex. Turkish Line Jeans"
         required
-        onChange={(e) => setItems({ ...item, name: e.target.value })}
+        onChange={(e) =>
+          setItems({
+            ...item,
+            name:
+              e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1),
+          })
+        }
       />
       <S.Input
         type="text"
@@ -76,7 +81,13 @@ const Add = () => {
         maxLength="15"
         placeholder="Color ex. Blue"
         required
-        onChange={(e) => setItems({ ...item, color: e.target.value })}
+        onChange={(e) =>
+          setItems({
+            ...item,
+            color:
+              e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1),
+          })
+        }
       />
       <S.Input
         type="text"
@@ -84,7 +95,13 @@ const Add = () => {
         maxLength="10"
         placeholder="Size ex. 32/34"
         required
-        onChange={(e) => setItems({ ...item, size: e.target.value })}
+        onChange={(e) =>
+          setItems({
+            ...item,
+            size:
+              e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1),
+          })
+        }
       />
       <S.Input
         type="number"

@@ -30,7 +30,6 @@ const Form = ({ type }) => {
         } else if (type === 'register') {
           history.push('/');
         }
-        console.log(data.error);
       })
       .catch((err) => console.log(err));
   };

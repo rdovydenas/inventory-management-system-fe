@@ -42,7 +42,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
           setToggle(!toggle);
         }}
       >
-        Change qty
+        {toggle ? 'Close' : 'Change QTY'}
       </Button>
 
       {toggle === true && (

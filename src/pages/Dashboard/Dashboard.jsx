@@ -16,6 +16,8 @@ const Dashboard = () => {
     history.push('/add');
   };
 
+  
+
   //SHOW ITEMS
 
   useEffect(() => {
@@ -24,6 +26,7 @@ const Dashboard = () => {
         'https://inventory-management-system-be-mqsje.ondigitalocean.app/content',
         {
           headers: {
+            'Content-Type': 'application/json',
             authorization: `Beared ${authContext.auth}`,
           },
         }
@@ -49,6 +52,7 @@ const Dashboard = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          authorization: `Beared ${authContext.auth}`,
         },
         body: JSON.stringify({
           id: Number(id),
@@ -56,22 +60,21 @@ const Dashboard = () => {
         }),
       }
     );
-    const result = await res.json();
-    console.log(result);
   };
 
   //DELETE ITEM
 
   const deleteItem = async (id) => {
-    console.log(id);
     const res = await fetch(
       `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/item/${id}`,
       {
         method: 'DELETE',
+        headers: {
+          authorization: `Beared ${authContext.auth}`,
+        },
       }
     );
     const result = await res.json();
-    console.log(result);
     setData(data.filter((item) => item.id !== id));
   };
 
@@ -99,7 +102,6 @@ const Dashboard = () => {
             updateQty={updateQty}
             // eslint-disable-next-line array-callback-return
             items={data.filter((items) => {
-              console.log(items);
               if (search === '') {
                 return items;
               } else if (
