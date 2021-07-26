@@ -4,6 +4,7 @@ import * as S from './Dashboard.style';
 import Cards from '../../components/Cards/Cards';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../contexts/authContext';
+import Loader from '../../components/Loader/Loader';
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -17,30 +18,29 @@ const Dashboard = () => {
 
   //GET ITEMS
 
-  const fetchItems = async () => {
-    const res = await fetch(
-      'https://inventory-management-system-be-mqsje.ondigitalocean.app/content',
-      {
-        headers: {
-          authorization: `Beared ${authContext.auth}`,
-        },
-      }
-    );
-    const data = await res.json();
-
-    return data;
-  };
-
   //SHOW ITEMS
 
   useEffect(() => {
+    const fetchItems = async () => {
+      const res = await fetch(
+        'https://inventory-management-system-be-mqsje.ondigitalocean.app/content',
+        {
+          headers: {
+            authorization: `Beared ${authContext.auth}`,
+          },
+        }
+      );
+      const data = await res.json();
+
+      return data;
+    };
+
     const getItems = async () => {
       const itemsFromServer = await fetchItems();
       setData(itemsFromServer);
     };
-    console.log(data);
     getItems();
-  }, [authContext.auth]);
+  }, [authContext]);
 
   //UPDATE QTY
 
@@ -93,19 +93,23 @@ const Dashboard = () => {
         </Button>
       </div>
       <S.FlexContainer>
-        <Cards
-          deleteItem={deleteItem}
-          updateQty={updateQty}
-          items={data.filter((items) => {
-            if (search === '') {
-              return items;
-            } else if (
-              items.item_name.toLowerCase().includes(search.toLowerCase())
-            ) {
-              return items;
-            }
-          })}
-        />
+        {data.length < 1 ? (
+          <Loader />
+        ) : (
+          <Cards
+            deleteItem={deleteItem}
+            updateQty={updateQty}
+            items={data.filter((items) => {
+              if (search === '') {
+                return items;
+              } else if (
+                items.item_name.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return items;
+              } else return data;
+            })}
+          />
+        )}
       </S.FlexContainer>
     </div>
   );

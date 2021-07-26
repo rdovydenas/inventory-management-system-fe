@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './Add.style';
 import Button from '../../components/Button/Button';
+import Loader from '../../components/Loader/Loader';
 
 import { useHistory } from 'react-router-dom';
 
@@ -39,6 +40,7 @@ function AddItem(item, history) {
 
 const Add = () => {
   const history = useHistory();
+  const [loader, setLoader] = useState(false);
   const [item, setItems] = useState({
     name: '',
     color: '',
@@ -47,10 +49,13 @@ const Add = () => {
     image: '',
   });
 
-  return (
+  return loader === true ? (
+    <Loader />
+  ) : (
     <S.Form
       onSubmit={(e) => {
         e.preventDefault();
+        setLoader(!loader);
         AddItem(item, history);
       }}
     >

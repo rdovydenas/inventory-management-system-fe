@@ -11,7 +11,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
 
   useEffect(() => {
     setShowImg(item.item_image);
-  });
+  }, [item.item_image]);
 
   //ADD QTY
 
