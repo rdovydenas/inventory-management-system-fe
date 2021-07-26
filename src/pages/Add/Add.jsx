@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import * as S from './Add.style';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
-
+import { AuthContext } from '../../contexts/authContext';
 import { useHistory } from 'react-router-dom';
 
 const toBase64 = (file) =>
@@ -13,33 +13,9 @@ const toBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-function AddItem(item, history) {
-  fetch(
-    `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/add`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: item.name,
-        color: item.color,
-        size: item.size,
-        quantity: item.quantity,
-        image: item.image,
-      }),
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      history.push('/dashboard');
-      console.log(data);
-    })
-    .catch((err) => err.message);
-}
-
 const Add = () => {
   const history = useHistory();
+  const authContext = useContext(AuthContext);
   const [loader, setLoader] = useState(false);
   const [item, setItems] = useState({
     name: '',
@@ -48,6 +24,32 @@ const Add = () => {
     quantity: '',
     image: '',
   });
+
+  function AddItem(item, history) {
+    fetch(
+      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/add`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Beared ${authContext.auth}`,
+        },
+        body: JSON.stringify({
+          name: item.name,
+          color: item.color,
+          size: item.size,
+          quantity: item.quantity,
+          image: item.image,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        history.push('/dashboard');
+        console.log(data);
+      })
+      .catch((err) => err.message);
+  }
 
   return loader === true ? (
     <Loader />

@@ -16,8 +16,6 @@ const Dashboard = () => {
     history.push('/add');
   };
 
-  //GET ITEMS
-
   //SHOW ITEMS
 
   useEffect(() => {
@@ -40,7 +38,7 @@ const Dashboard = () => {
       setData(itemsFromServer);
     };
     getItems();
-  }, [authContext]);
+  }, [authContext.auth]);
 
   //UPDATE QTY
 
@@ -99,14 +97,16 @@ const Dashboard = () => {
           <Cards
             deleteItem={deleteItem}
             updateQty={updateQty}
+            // eslint-disable-next-line array-callback-return
             items={data.filter((items) => {
+              console.log(items);
               if (search === '') {
                 return items;
               } else if (
                 items.item_name.toLowerCase().includes(search.toLowerCase())
               ) {
                 return items;
-              } else return data;
+              }
             })}
           />
         )}
