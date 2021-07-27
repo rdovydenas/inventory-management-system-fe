@@ -26,7 +26,7 @@ const Form = ({ type }) => {
           if (data.token) {
             authContext.setAuth(data.token);
             history.push('/dashboard');
-          }
+          } else alert('Email or password incorrect');
         } else if (type === 'register') {
           history.push('/');
         }
