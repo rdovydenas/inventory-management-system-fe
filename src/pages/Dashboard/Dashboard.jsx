@@ -16,8 +16,6 @@ const Dashboard = () => {
     history.push('/add');
   };
 
-  
-
   //SHOW ITEMS
 
   useEffect(() => {
@@ -100,16 +98,19 @@ const Dashboard = () => {
           <Cards
             deleteItem={deleteItem}
             updateQty={updateQty}
-            // eslint-disable-next-line array-callback-return
-            items={data.filter((items) => {
-              if (search === '') {
-                return items;
-              } else if (
-                items.item_name.toLowerCase().includes(search.toLowerCase())
-              ) {
-                return items;
-              }
-            })}
+            items={
+              data &&
+              // eslint-disable-next-line array-callback-return
+              data.filter((items) => {
+                if (search === '') {
+                  return items;
+                } else if (
+                  items.item_name.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return items;
+                }
+              })
+            }
           />
         )}
       </S.FlexContainer>
