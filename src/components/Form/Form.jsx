@@ -24,7 +24,11 @@ const Form = ({ type }) => {
       .then((data) => {
         if (type === 'login') {
           if (data.token) {
-            authContext.setAuth(data.token);
+            localStorage.setItem('token', data.token);
+            authContext.setLoggedIn(true);
+            setTimeout(() => {
+              history.push('/dashboard');
+            }, 2000);
             history.push('/dashboard');
           } else alert('Email or password incorrect');
         } else if (type === 'register') {

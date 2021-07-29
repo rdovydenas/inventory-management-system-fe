@@ -7,6 +7,7 @@ import { AuthContext } from '../../contexts/authContext';
 import Loader from '../../components/Loader/Loader';
 
 const Dashboard = () => {
+  const token = localStorage.getItem('token');
   const [data, setData] = useState([]);
   let [search, setSearch] = useState('');
   const authContext = useContext(AuthContext);
@@ -15,6 +16,10 @@ const Dashboard = () => {
   const addPage = () => {
     history.push('/add');
   };
+
+  if (!token) {
+    history.push('/');
+  }
 
   //SHOW ITEMS
 
@@ -25,7 +30,7 @@ const Dashboard = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            authorization: `Beared ${authContext.auth}`,
+            authorization: `Beared ${token}`,
           },
         }
       );

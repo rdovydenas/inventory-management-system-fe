@@ -16,7 +16,7 @@ const toBase64 = (file) =>
 const Add = () => {
   const history = useHistory();
   const authContext = useContext(AuthContext);
-  const [loader, setLoader] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); //isloader
   const [item, setItems] = useState({
     name: '',
     color: '',
@@ -27,7 +27,7 @@ const Add = () => {
 
   function AddItem(item, history) {
     fetch(
-      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/add`,
+      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/add`, //linka issikelt
       {
         method: 'POST',
         headers: {
@@ -50,13 +50,13 @@ const Add = () => {
       .catch((err) => err.message);
   }
 
-  return loader === true ? (
+  return isLoading === true ? (
     <Loader />
   ) : (
     <S.Form
       onSubmit={(e) => {
         e.preventDefault();
-        setLoader(!loader);
+        setIsLoading(!isLoading);
         AddItem(item, history);
       }}
     >
