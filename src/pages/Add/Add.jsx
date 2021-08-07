@@ -22,6 +22,7 @@ const Add = () => {
     color: '',
     size: '',
     quantity: '',
+    price: '',
     image: '',
   });
 
@@ -39,6 +40,7 @@ const Add = () => {
           color: item.color,
           size: item.size,
           quantity: item.quantity,
+          price: item.price,
           image: item.image,
         }),
       }
@@ -92,7 +94,7 @@ const Add = () => {
       <S.Input
         type="text"
         name="size"
-        maxLength="10"
+        maxLength="35"
         placeholder="Size ex. 32/34"
         required
         onChange={(e) =>
@@ -108,6 +110,13 @@ const Add = () => {
         name="quantity"
         placeholder="Quantity ex. 64"
         onChange={(e) => setItems({ ...item, quantity: e.target.value })}
+        required
+      />
+      <S.Input
+        type="number"
+        name="price"
+        placeholder="Price ex. 23"
+        onChange={(e) => setItems({ ...item, price: e.target.value })}
         required
       />
       <S.Input

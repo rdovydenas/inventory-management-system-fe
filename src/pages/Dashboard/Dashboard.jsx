@@ -44,7 +44,7 @@ const Dashboard = () => {
       setData(itemsFromServer);
     };
     getItems();
-  }, [authContext.auth]);
+  }, [authContext.auth, token]);
 
   //UPDATE QTY
 
@@ -63,22 +63,26 @@ const Dashboard = () => {
         }),
       }
     );
+    const result = await res.json();
+    console.log(result);
   };
 
   //DELETE ITEM
 
   const deleteItem = async (id) => {
-    const res = await fetch(
-      `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/item/${id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          authorization: `Beared ${authContext.auth}`,
-        },
-      }
-    );
-    const result = await res.json();
-    setData(data.filter((item) => item.id !== id));
+    if (window.confirm('Delete the item?') === true) {
+      const res = await fetch(
+        `https://inventory-management-system-be-mqsje.ondigitalocean.app/content/item/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            authorization: `Beared ${authContext.auth}`,
+          },
+        }
+      );
+      const result = await res.json();
+      setData(data.filter((item) => item.id !== id));
+    }
   };
 
   return (

@@ -37,6 +37,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
       <h2>Name: {item.item_name}</h2>
       <h3>Color: {item.item_color}</h3>
       <h4>Size: {item.item_size}</h4>
+      <h4>Price: {item.item_price}€</h4>
       <Button
         onToggle={() => {
           setToggle(!toggle);
@@ -65,6 +66,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
 
 Card.propTypes = {
   quantity: PropTypes.number,
+  price: PropTypes.number,
   name: PropTypes.string,
   size: PropTypes.string,
   color: PropTypes.string,
