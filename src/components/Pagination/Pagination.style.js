@@ -5,7 +5,7 @@ export const Ul = styled.ul`
   list-style-type: none;
   padding: 0;
   @media (max-width: 769px) {
-    justify-content: space-around;
+    justify-content: center;
   }
 `;
 

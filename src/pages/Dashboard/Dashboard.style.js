@@ -11,9 +11,15 @@ export const FlexContainer = styled.section`
 
 export const Input = styled.input`
   width: 100%;
-  padding: 0.5em 0;
+  padding: 0.5em;
   outline: none;
+  border: 1px solid steelblue;
   font-size: large;
+`;
+
+export const H1 = styled.h1`
+  margin-top: 0;
+  margin-bottom: 3rem;
 `;
 
 export const Button = styled.button``;

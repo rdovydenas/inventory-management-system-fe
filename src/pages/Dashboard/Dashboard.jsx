@@ -97,6 +97,7 @@ const Dashboard = () => {
 
   return (
     <div className="wrapper">
+      <S.H1>Inventory Management System</S.H1>
       <div className="topSection">
         <S.Input
           type="search"
@@ -111,33 +112,36 @@ const Dashboard = () => {
         </Button>
       </div>
       <S.FlexContainer>
-        {currentPosts.length < 1 ? (
+        {data.length < 1 ? (
           <Loader />
         ) : (
           <Cards
             deleteItem={deleteItem}
             updateQty={updateQty}
             items={
-              currentPosts &&
-              // eslint-disable-next-line array-callback-return
-              currentPosts.filter((items) => {
-                if (search === '') {
-                  return items;
-                } else if (
-                  items.item_name.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return items;
-                }
-              })
+              search === ''
+                ? currentPosts
+                : data.filter((items) =>
+                    items.item_name.toLowerCase().includes(search.toLowerCase())
+                  )
             }
           />
         )}
       </S.FlexContainer>
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={data.length}
-        paginate={paginate}
-      />
+      {search.length > 0 ? (
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={currentPosts.length}
+          paginate={paginate}
+        />
+      ) : (
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={data.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      )}
     </div>
   );
 };

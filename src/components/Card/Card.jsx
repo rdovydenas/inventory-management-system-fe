@@ -36,7 +36,7 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
       <S.CardImage src={showImg} />
       <h2>Name: {item.item_name}</h2>
       <h3>Color: {item.item_color}</h3>
-      <h4>Size: {item.item_size}</h4>
+      <h4>Size: {item.item_size.replaceAll(',', ', ')}</h4>
       <h4>Price: {item.item_price}€</h4>
       <Button
         onToggle={() => {
@@ -48,16 +48,16 @@ const Card = ({ item, onToggle, updateQty, deleteItem }) => {
 
       {toggle === true && (
         <S.ButtonBlock>
-          <Button color="primary" addQty={Inc}>
-            +
-          </Button>
           <Button color="secondary" minQty={Dec}>
             -
+          </Button>
+          <Button color="primary" addQty={Inc}>
+            +
           </Button>
         </S.ButtonBlock>
       )}
       <h5>Quantity: {qty}</h5>
-      <Button color="secondary" type="button" deleteItem={() => deleteItem(id)}>
+      <Button color="danger" type="button" deleteItem={() => deleteItem(id)}>
         DELETE ITEM
       </Button>
     </S.CardBlock>

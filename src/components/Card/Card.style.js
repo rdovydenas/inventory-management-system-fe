@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CardBlock = styled.div`
   box-sizing: border-box;
-  border: 1px solid lightgray;
+  border: 1px solid steelblue;
   width: calc(25% - 0.75rem);
   margin-right: 1rem;
   margin-top: 1rem;
@@ -34,7 +34,6 @@ export const ButtonBlock = styled.div`
 
 export const DelButton = styled.button`
   border: none;
-  background-color: ${(props) => (props.color === 'red' ? 'red' : '#b7b7a4')};
   color: #ffffff;
   cursor: pointer;
   padding: 0.5rem 2rem;

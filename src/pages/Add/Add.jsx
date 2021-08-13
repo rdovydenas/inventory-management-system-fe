@@ -16,7 +16,7 @@ const toBase64 = (file) =>
 const Add = () => {
   const history = useHistory();
   const authContext = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false); //isloader
+  const [isLoading, setIsLoading] = useState(false);
   const [item, setItems] = useState({
     name: '',
     color: '',

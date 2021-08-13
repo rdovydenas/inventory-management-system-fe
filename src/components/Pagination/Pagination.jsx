@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './Pagination.style';
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -18,7 +18,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
               }}
               href="#"
             >
-              {number}
+              {currentPage === number ? <b>{number}</b> : number}
             </S.Link>
           </S.Li>
         ))}

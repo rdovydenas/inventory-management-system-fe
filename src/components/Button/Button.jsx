@@ -24,7 +24,7 @@ const Button = ({
 Button.propTypes = {
   children: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['submit', 'reset', 'button']),
-  color: PropTypes.oneOf(['primary', 'secondary']),
+  color: PropTypes.oneOf(['primary', 'secondary', 'danger']),
 };
 
 Button.defaultProps = {
